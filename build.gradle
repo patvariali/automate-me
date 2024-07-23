@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+    id 'io.qameta.allure-adapter' version '2.11.2'
+}
+
+ext {
+    junitVersion = '5.10.2'
+    allureVersion = '2.27.0'
+    slf4jVersion = '2.0.9'
+    fakerVersion = '1.0.2'
+    lombokVersion = '1.18.32'
+    seleniumVersion = '4.22.0'
+    javaFaker = '1.0.2'
+    assertJ = '3.23.1'
+
+}
+
+group = 'me.automate'
+version = '1.0-SNAPSHOT'
+
+allure {
+    version.set("${allureVersion}")
+    adapter {
+        aspectjVersion.set("1.9.22")
+        autoconfigure.set(true)
+        aspectjWeaver.set(true)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "com.github.javafaker:javafaker:${javaFaker}"
+    testImplementation "org.assertj:assertj-core:${assertJ}"
+    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+    testImplementation "io.qameta.allure:allure-attachments:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-junit5:${allureVersion}"
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+}
+
+test {
+    useJUnitPlatform()
+}
